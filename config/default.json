@@ -1,4 +1,4 @@
 {
   "mongoURI": "mongodb+srv://voopik:voopik@cluster0-j9k2l.mongodb.net/test?retryWrites=true&w=majority",
-  "baseUrl": "http://localhost:3000"
+  "baseUrl": "http://my-rl.herokuapp.com/"
 }
