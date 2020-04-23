@@ -9,27 +9,59 @@ const router = express.Router();
 // @route   POST /api/myrl/modify
 // @desc    Create new URL
 router.post("/modify", async (req, res) => {
-  const { oldUrl } = req.body;
+  const { oldUrl, customText } = req.body;
   const baseUrl = config.get("baseUrl");
+  var sent = false;
 
-  //check base url
-  if (!validurl.isUri(baseUrl)) {
-    return res.status(401).json("invalid base url: " + baseUrl);
+  var urlCode;
+  //check the custom text is not taken already
+  if (customText) {
+    urlCode = customText;
+    let url = await Myrl.findOne({ urlCode: urlCode });
+    if (url) {
+      sent = true;
+      res.send({
+        newUrl: false,
+        ctExist: urlCode,
+        alExist: false,
+        reto: false,
+      });
+    }
+  } else urlCode = shortid.generate();
+  // check if the oldUrl already points to something;
+  if (!sent) {
+    let url = await Myrl.findOne({ newUrl: oldUrl });
+    if (url) {
+      sent = true;
+      res.send({
+        newUrl: false,
+        ctExist: false,
+        alExist: false,
+        reto: url.oldUrl,
+      });
+    }
   }
-
-  // create url code
-  const urlCode = shortid.generate();
-
-  // check input url
-  if (validurl.isUri(oldUrl)) {
-    try {
+  if (!sent) {
+    if (validurl.isUri(oldUrl)) {
+      // check if input url is already shortened
       let url = await Myrl.findOne({ oldUrl });
 
       if (url) {
-        res.json(url);
+        res.send({
+          newUrl: url.newUrl,
+          ctExist: false,
+          alExist: true,
+          reto: false,
+        });
       } else {
-        const newUrl = baseUrl + "/" + urlCode;
-
+        var newUrl;
+        var urlCode;
+        if (customText) {
+          urlCode = customText;
+        } else {
+          urlCode = shortid.generate();
+        }
+        newUrl = baseUrl + "/" + urlCode;
         url = new Myrl({
           oldUrl,
           newUrl,
@@ -39,16 +71,9 @@ router.post("/modify", async (req, res) => {
 
         await url.save();
 
-        res.json(url);
+        res.send({ newUrl: url.newUrl });
       }
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).json("Server error");
     }
-  } else {
-    res.status(401).send("invalid Url");
-    console.log(oldUrl);
-    console.log(req.headers);
   }
 });
 
