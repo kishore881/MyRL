@@ -1,7 +1,7 @@
 const express = require("express");
 const validurl = require("valid-url");
 const shortid = require("shortid");
-const config = require("config");
+// const config = require("config");
 const Myrl = require("../models/Myrl");
 
 const router = express.Router();
@@ -10,7 +10,8 @@ const router = express.Router();
 // @desc    Create new URL
 router.post("/modify", async (req, res) => {
   const { oldUrl, customText } = req.body;
-  const baseUrl = config.get("baseUrl");
+  // const baseUrl = config.get("baseUrl");
+  const baseUrl = process.env.baseUrl;
   var sent = false;
 
   var urlCode;
