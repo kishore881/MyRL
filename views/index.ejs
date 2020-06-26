@@ -1,109 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="author" content="K.Kishorereddy">
-    <meta name="description" content="MyRL is a URL shortener and customiser made by K.Kishorereddy">
-    <title>MyRL</title>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <link rel="stylesheet" href="./bootstrap.min.css" type="text/css" />
-  </head>
-  <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container">
-        <a class="navbar-brand ml-auto" href="/">MyRL</a>
-      </div>
-    </nav>    
-    
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1 class="display-5">MyRL</h1>
-        <p class="lead">
-          - My Resource Locator, a URL shortener and customiser
-        </p>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="K.Kishorereddy">
+  <meta name="description" content="MyRL is a URL shortener and customiser made by K.Kishorereddy">
+  <title>MyRL</title>
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <link rel="stylesheet" href="./bootstrap.min.css" type="text/css" />
+</head>
+
+<body class="min-vh-100 d-flex flex-column">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand ml-auto" href="/">MyRL</a>
+    </div>
+  </nav>
+
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-5">MyRL</h1>
+      <p class="lead">
+        - My Resource Locator, a URL shortener and customiser
+      </p>
+      <hr>
+    </div>
+  </div>
+
+  <div class="info container text-center">
+    <% if(Object.keys(info).length) { %>
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong><%= info %></strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
 
-    <div class="info container text-center">
-      <% if(Object.keys(info).length) { %>
+    <% } %>
+  </div>
 
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong><%= info %></strong>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+  <div class="form-div container flex-grow-1">
 
-        <% } %>
-    </div>
+    <form id="url-form" class=" jumbotron ">
 
-    <div class="form-div container jumbotron">
+      <div class="col form-group">
+        <label for="original-url">Original URL:</label>
+        <input type="url" class="form-control" name="oldUrl" placeholder="Enter the URL" required />
+      </div>
 
-      <form id="url-form">
+      <div class="col form-group">
+        <label class="control-label"></label>
+        Customise:
+        <span class="text-muted">
+          ( Leave this field empty to generate random text )
+        </span>
+        </label>
+      </div>
 
-        <div class="col form-group">
-          <label for="original-url">Original URL:</label>
-          <input
-            type="url"
-            class="form-control"
-            name="oldUrl"
-            placeholder="Enter the URL"
-            required
-          />
-        </div>
-
-        <div class="col form-group">
-          <label class="control-label"></label>
-            Customise:
-            <span class="text-muted">
-              ( Leave this field empty to generate random text )
+      <div class="col form-group">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              my-rl.herokuapp.com/
             </span>
-          </label>
-        </div>
-        
-        <div class="col form-group">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                my-rl.herokuapp.com/ 
-              </span>
-            </div>
-            <input
-              type="text"
-              class="form-control"
-              name="customText"
-              pattern="^[a-zA-Z0-9_-]*$"
-              placeholder="Custom text"
-            />
           </div>
+          <input type="text" class="form-control" name="customText" pattern="^[a-zA-Z0-9_-]*$"
+            placeholder="Custom text" />
         </div>
+      </div>
 
-        <div class="col text-center">
-          <button type="submit" class="btn btn-primary px-5">
-             MyRL 
-          </button>
-        </div>
-      </form>
-    </div>
-    <br><br><br><br><br>
-    <div class="jumbotron jumbotron-fluid bg-primary text-white py-4 my-0">
-      <div class="container text-center">
-        -Made by <a href="https:/kancherlakishorereddy.github.io" target="null"><strong>K.Kishorereddy</strong>
-        </a></div>
-    </div>
+      <div class="col text-center">
+        <button type="submit" class="btn btn-primary px-5">
+          MyRL
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="jumbotron jumbotron-fluid bg-primary text-white py-4 my-0">
+    <div class="container text-center">
+      -Made by <a href="https:/kancherlakishorereddy.github.io" target="null"><strong>K.Kishorereddy</strong>
+      </a></div>
+  </div>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-      crossorigin="anonymous"
-    ></script>
-    <script src="main.js"></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <script src="main.js"></script>
+</body>
+
 </html>
