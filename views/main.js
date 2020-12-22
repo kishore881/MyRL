@@ -1,8 +1,16 @@
+const spinner = `<div class="d-flex justify-content-center" id="loading">
+<div class="spinner-border" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+</div>`;
+const sub = '<button type="submit" class="btn btn-primary px-5">MyRL</button>';
+
 $("#url-form").submit(function (event) {
   event.preventDefault();
 
   // remove previous alerts
   $(".info")[0].innerHTML = "";
+  $(".sub")[0].innerHTML = spinner;
 
   var $form = $(this),
     oldUrl = $form.find("input[name='oldUrl']").val(),
@@ -16,6 +24,7 @@ $("#url-form").submit(function (event) {
     else if (data.newUrl) success(data.newUrl);
     if (data.ctExist) ctExist(data.ctExist);
     if (data.reto) reto(data.reto);
+    $(".sub")[0].innerHTML = sub;
   });
 });
 
