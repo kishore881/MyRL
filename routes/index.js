@@ -19,7 +19,7 @@ router.get("/:code", async (req, res) => {
       return res.redirect(url.oldUrl);
     } else {
       return res.render("index", {
-        info: `Requested URL "my-rl.herokuapp.com${req.url}" does not exist.`,
+        info: `Requested URL "myrl.onrender.com${req.url}" does not exist.`,
       });
     }
   } catch (err) {
